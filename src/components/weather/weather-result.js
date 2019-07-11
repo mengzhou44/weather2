@@ -25,7 +25,7 @@ export default function WeatherResult(props) {
         </div>
         <div className={styles['result-bottom']}>
           <div className={styles.temperature}>
-            <div className={styles.current}>{currentTemp}</div>
+            <div id='currentTemp' className={styles.current}>{currentTemp}</div>
             <div className={styles.label}>°C</div>
           </div>
           <div className={styles.details}>
