@@ -5,7 +5,7 @@ import httpService from '../../utils/http-service';
 
 import styles from './weather.module.scss';
 
-import WeatherSearch from './weather-search';
+import WeatherInput from './weather-input';
 import WeatherResult from './weather-result';
 
 export default  function Weather() {
@@ -55,11 +55,11 @@ export default  function Weather() {
     return (
       <div className={styles.weather}>
         <div className={styles.title}>Weather</div>
-        <WeatherSearch
-          onClearWeather={() => {
+        <WeatherInput
+          onTextChange={() => {
             setWeather(null);
           }}
-          onSearchWeather={async (city: string) => {
+          onSubmit={async (city) => {
             await searchWeather(city);
           }}
         />

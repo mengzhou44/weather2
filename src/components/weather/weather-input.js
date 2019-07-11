@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
- import styles from './weather-search.module.scss';
+ import styles from './weather-input.module.scss';
 
-export default function WeatherSearch(props){
+export default function WeatherInput(props){
     const [city, setCity] = useState('');
 
     return (
-        <div className={styles.search}>
+        <div className={styles.input}>
           <input
             type="text"
             value={city}
@@ -13,12 +13,12 @@ export default function WeatherSearch(props){
             className="input"
             onChange={e => {
                setCity(e.target.value)
-               props.onClearWeather();
+               props.onTextChange();
             }}
             onKeyUp={e => {
               e.preventDefault();
               if (e.key === 'Enter') {
-                 props.onSearchWeather(city);
+                 props.onSubmit(city);
               }
             }}
           />
@@ -26,7 +26,7 @@ export default function WeatherSearch(props){
             className={styles.button}
             disabled={city === ''}
             onClick={() => {
-                props.onSearchWeather(city);
+               props.onSubmit(city);
             }}
           >
             <img src="/images/svg/binoculars.svg" alt="search" />
