@@ -1,0 +1,28 @@
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.5rem 1rem;
+  border-radius: 3px;
+  color: $color-primary-gray-light;
+  background-color: $color-primary-green;
+  font-size: $font-normal;
+  height: 4rem;
+  cursor: pointer;
+
+  transition: all 0.2s;
+
+  &:hover {
+    transform: translateY(-0.3rem);
+    box-shadow: 0 1rem 2rem rgba($color-black, 0.2);
+    color: $color-white;
+  }
+
+  img {
+    width: 1.5rem;
+    height: auto;
+    object-fit: cover;
+    margin-right: 1rem;
+  }
+}

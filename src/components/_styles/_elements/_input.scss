@@ -1,0 +1,15 @@
+.input,
+.input[type='text'] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  font-size: $font-normal;
+  font-family: inherit;
+  color: $color-primary-gray-dark;
+  border: 1px solid $color-primary-gray-light;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  font-weight: 400;
+  height: 3.9rem;
+  width: 100% !important;
+}

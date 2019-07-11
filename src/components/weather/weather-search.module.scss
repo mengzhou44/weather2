@@ -1,0 +1,31 @@
+@import '../_styles/lib.scss';
+
+.search {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  input {
+    flex: 1;
+    height: 4rem;
+    padding-left: 1rem;
+  }
+
+  button {
+    min-width: 10rem;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    &:disabled {
+      cursor: default;
+      background-color: #ccc;
+    }
+  }
+}
+
+@media only screen and (max-width: $screen-small) {
+  .button-text {
+    display: none;
+  }
+}
