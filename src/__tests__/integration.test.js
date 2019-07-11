@@ -21,7 +21,7 @@ beforeEach(() => {
         }
       ],
       main: {
-        temp: 1.23,
+        temp: 15.23,
         pressure: 1015,
         humidity: 93,
         temp_min: 12.22,
@@ -45,7 +45,9 @@ it('can retive weather for calgary', done => {
   wrapped.update();
 
   moxios.wait(() => {
-    console.log(wrapped.find('#currentTemp').length);
+    wrapped.update();
+    const temp = wrapped.find('#currentTemp').text();
+    expect(temp).toEqual('15');
     done();
     wrapped.unmount();
   });

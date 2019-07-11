@@ -1,27 +1,32 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-
-import httpService from '../../utils/http-service';
 
 import styles from './weather.module.scss';
 
 import WeatherInput from './weather-input';
 import WeatherResult from './weather-result';
 
-export default function Weather() {
-  const [weather, setWeather] = useState(null);
-  const [loading, setLoading] = useState(false);
+export default class Weather extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      weather: null,
+      loading: false
+    };
+  }
 
-  async function searchWeather(city) {
+  async searchWeather(city) {
     try {
-      setLoading(true);
+      this.setState({
+        loading: true
+      });
 
-      const url = `/weather?q=${city}&appid=${
+      const url = `${process.env.REACT_APP_BASE_URL}/weather?q=${city}&appid=${
         process.env.REACT_APP_WEATHER_API_KEY
       }&units=metric`;
- 
-      const res = await httpService.get(url);
+
+      const res = await axios.get(url);
 
       const { data } = res;
       const { main } = res.data;
@@ -34,39 +39,48 @@ export default function Weather() {
         minTemp: main.temp_min.toFixed(0),
         maxTemp: main.temp_max.toFixed(0)
       };
-
-      setWeather(weatherData);
+      this.setState({
+        weather: weatherData
+      });
     } catch (err) {
-      setWeather(null);
+      this.setState({
+        weather: null
+      });
       toast.error('City invalid or Network error...');
     } finally {
-      setLoading(false);
+      this.setState({
+        loading: false
+      });
     }
   }
 
-  function renderWeatherResult() {
-    if (loading === true) {
+  renderWeatherResult() {
+    if (this.state.loading === true) {
       return (
         <div className={styles.loader}>
           <img src="/images/loader.gif" alt="loader" />
         </div>
       );
     }
-    return <WeatherResult weather={weather} />;
+    return <WeatherResult weather={this.state.weather} />;
   }
 
-  return (
-    <div className={styles.weather}>
-      <div className={styles.title}>Weather</div>
-      <WeatherInput
-        onTextChange={() => {
-          setWeather(null);
-        }}
-        onSubmit={async city => {
-          await searchWeather(city);
-        }}
-      />
-      {renderWeatherResult()}
-    </div>
-  );
+  render() {
+    return (
+      <div className={styles.weather}>
+        <div className={styles.title}>Weather</div>
+        <WeatherInput
+          onTextChange={() => {
+            this.setState({
+              weather: null
+            });
+          }}
+          onSubmit={async city => {
+            await this.searchWeather(city);
+          }}
+        />
+        {this.renderWeatherResult()}
+      </div>
+    );
+  }
 }
